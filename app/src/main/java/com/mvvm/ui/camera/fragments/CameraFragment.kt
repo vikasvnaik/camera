@@ -155,13 +155,13 @@ class CameraFragment : Fragment() {
         }
 
         fragmentCameraBinding.submit?.setOnClickListener {
-            val sdf = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS", Locale.US)
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
             if(photoList.size > 0){
                 GlobalScope.launch(Dispatchers.Main) {
                     albumDao?.insert(
                         AlbumEntity(
                             null,
-                            sdf.toString(),
+                            sdf.format(Date()),
                             fromList(photoList),
                             "Test"
                         )
@@ -277,8 +277,8 @@ class CameraFragment : Fragment() {
                         exif.saveAttributes()
                         Log.d(TAG, "EXIF metadata saved: ${output.absolutePath}")
                     }
-                    val sdf = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS", Locale.US)
-                    photoList.add(Photos(output.absolutePath,sdf.toString(),"test"))
+                    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
+                    photoList.add(Photos(output.absolutePath,sdf.format(Date()),"test"))
                     lifecycleScope.launch(Dispatchers.Main) {
                     if(photoList.size == 1){
                         adapter.submitList(photoList)

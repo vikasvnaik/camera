@@ -13,6 +13,7 @@ typealias AppLayout = R.layout
 typealias AppColor = R.color
 typealias DefaultColor = android.R.color
 typealias ItemClickListener<T> = (position: Int, data: T) -> Unit
+typealias ClickIcon<T> = (position: Int, data: T) -> Unit
 typealias ItemLongClickListener<T> = (position: Int, data: T) -> Unit
 typealias ItemViewClickListener<T> = (id: Int, position: Int, data: T) -> Unit
 typealias PagerFragment = Pair<Int, Fragment>

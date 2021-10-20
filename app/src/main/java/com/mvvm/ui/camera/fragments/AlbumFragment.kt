@@ -39,7 +39,7 @@ class AlbumFragment : BaseFragment(AppLayout.fragment_album) {
     }
     override fun onCreate(view: View) {
         setUpRoomDb()
-        binding.rv?.adapter = adapter
+
     }
 
     override fun onCreateView(
@@ -55,11 +55,24 @@ class AlbumFragment : BaseFragment(AppLayout.fragment_album) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadAlbums()
+        //loadAlbums()
         binding.camFab.setOnClickListener {
             val directions = AlbumFragmentDirections.actionAlbumToCamera("0", ImageFormat.JPEG)
             navController.navigate(directions)
         }
+        adapter.click { position, album_ ->
+            val directions = AlbumFragmentDirections.actionAlbumToPhoto(album_)
+            navController.navigate(directions)
+        }
+
+        adapter.clickIcon { position,album_ ->
+            deleteAlbums(album_.id!!)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadAlbums()
     }
 
     override fun onDestroyView() {
@@ -72,15 +85,19 @@ class AlbumFragment : BaseFragment(AppLayout.fragment_album) {
         //locationDao = db.locationDao()
     }
     private fun loadAlbums(){
+        binding.rv?.adapter = adapter
         GlobalScope.launch(Dispatchers.Main) {
             val albums = albumDao?.getAll() //Read data
             if (albums != null) {
-                if (albums.isNotEmpty()){
-                    //push data to server
-                    //delete data from db
-                    adapter.submitList(albums)
-                   }
+                adapter.submitList(albums)
             }
+        }
+    }
+
+    private fun deleteAlbums(id: Long){
+        GlobalScope.launch(Dispatchers.Main) {
+           albumDao?.deleteById(id)
+            loadAlbums()
         }
     }
 

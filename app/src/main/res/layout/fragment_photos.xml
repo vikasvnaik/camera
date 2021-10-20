@@ -11,23 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
         android:layout_centerHorizontal="true"
-        android:text="@string/albums"/>
+        android:text="@string/photos"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
+        app:spanCount="3"
         android:layout_below="@+id/title"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/camFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:fabSize="normal"
-       android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        app:srcCompat="@drawable/ic_camera" />
 
 </RelativeLayout>

@@ -3,18 +3,21 @@ package com.mvvm.ui.camera
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.mvvm.data.db.entity.AlbumEntity
 import com.mvvm.databinding.ItemPhotoBinding
+import com.mvvm.databinding.ItemPhotoViewBinding
 import com.mvvm.domain.entity.models.Photos
 import com.mvvm.ui.base.BaseListAdapter
 import com.mvvm.ui.base.DifCallback
 import com.mvvm.ui.base.Holder
+import com.mvvm.utils.toList
 import com.transo.ken42.driver.extension.click
 
 
-class PhotoAdapter : BaseListAdapter<Holder, Photos>(DifCallback()) {
+class PhotoViewAdapter : BaseListAdapter<Holder, Photos>(DifCallback()) {
     override fun onCreateItemViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         return Holder(
-            ItemPhotoBinding.inflate(
+            ItemPhotoViewBinding.inflate(
                 LayoutInflater.from(viewGroup.context),
                 viewGroup,
                 false
@@ -23,14 +26,10 @@ class PhotoAdapter : BaseListAdapter<Holder, Photos>(DifCallback()) {
     }
 
     override fun onBindItemViewHolder(holder: Holder, position: Int) {
-        val binding = ItemPhotoBinding.bind(holder.itemView)
+        val binding = ItemPhotoViewBinding.bind(holder.itemView)
         val item = getItem(position)
-        binding.desc.text = item.timestamp
         Glide.with(binding.ivImage).load(item.path).into(binding.ivImage)
-        /*binding.root.click {
-            itemClickListener?.invoke(position, item)
-        }*/
-        binding.ivCross.click {
+        binding.root.click {
             itemClickListener?.invoke(position, item)
         }
     }

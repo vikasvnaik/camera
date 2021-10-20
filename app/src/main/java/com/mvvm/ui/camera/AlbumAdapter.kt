@@ -15,7 +15,6 @@ import com.transo.ken42.driver.extension.click
 
 
 class AlbumAdapter : BaseListAdapter<Holder, AlbumEntity>(DifCallback()) {
-    private var clickIcon: ((Int, Int, Photos) -> Unit?)? = null
     override fun onCreateItemViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         return Holder(
             ItemPhotoBinding.inflate(
@@ -29,9 +28,13 @@ class AlbumAdapter : BaseListAdapter<Holder, AlbumEntity>(DifCallback()) {
     override fun onBindItemViewHolder(holder: Holder, position: Int) {
         val binding = ItemPhotoBinding.bind(holder.itemView)
         val item = getItem(position)
+        binding.desc.text = item.timeStamp
         Glide.with(binding.ivImage).load(toList(item.photos)[0].path).into(binding.ivImage)
         binding.root.click {
             itemClickListener?.invoke(position, item)
+        }
+        binding.ivCross.click {
+            clickIcon?.invoke(position,item)
         }
     }
 }

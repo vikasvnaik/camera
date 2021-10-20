@@ -29,6 +29,11 @@
             app:launchSingleTop="true"
             app:destination="@id/camera_fragment" />
 
+        <action
+            android:id="@+id/action_album_to_photo"
+            app:launchSingleTop="true"
+            app:destination="@id/photo_fragment" />
+
     </fragment>
 
     <fragment
@@ -78,6 +83,15 @@
             android:name="depth"
             app:argType="boolean"
             android:defaultValue="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photo_fragment"
+        android:name="com.mvvm.ui.camera.fragments.PhotosFragment"
+        android:label="Photo" >
+        <argument
+            android:name="photos"
+            app:argType="com.mvvm.data.db.entity.AlbumEntity" />
     </fragment>
 
 </navigation>

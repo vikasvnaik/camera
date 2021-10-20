@@ -20,5 +20,5 @@ interface AlbumDao {
     suspend fun delete(albumEntity: AlbumEntity)
 
     @Query("DELETE FROM albums WHERE id = :id")
-    suspend fun deleteByCount(id: Int )
+    suspend fun deleteById(id: Long )
 }

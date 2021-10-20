@@ -5,15 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mvvm.extension.ItemClickListener
-import com.mvvm.extension.ItemLongClickListener
-import com.mvvm.extension.ItemViewClickListener
-import com.mvvm.extension.runOnUiThread
+import com.mvvm.extension.*
 
 
 abstract class BaseListAdapter<VH : RecyclerView.ViewHolder, T>(callback: DiffUtil.ItemCallback<T>) :
     ListAdapter<T, RecyclerView.ViewHolder>(callback) {
     internal var itemClickListener: ItemClickListener<T>? = null
+    internal var clickIcon: ClickIcon<T>? = null
     internal var itemLongClickListener: ItemLongClickListener<T>? = null
     internal var itemViewClickListener: ItemViewClickListener<T>? = null
     private var loadMore: (() -> Unit?)? = null
@@ -48,6 +46,10 @@ abstract class BaseListAdapter<VH : RecyclerView.ViewHolder, T>(callback: DiffUt
 
     fun click(f: ItemClickListener<T>) {
         itemClickListener = f
+    }
+
+    fun clickIcon(f: ClickIcon<T>) {
+        clickIcon = f
     }
 
     fun longClick(f: ItemLongClickListener<T>) {
