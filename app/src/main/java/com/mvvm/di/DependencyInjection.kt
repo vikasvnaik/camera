@@ -20,6 +20,7 @@ import com.mvvm.domain.repository.WeatherRepo
 import com.mvvm.domain.usecase.WeatherUpdateUseCase
 import com.mvvm.extension.P
 import com.mvvm.vm.SharedVM
+import com.mvvm.vm.camera.CameraVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -30,6 +31,7 @@ import timber.log.Timber
 fun dependency() = listOf(vm, repository, manager, service, useCases, singleInstance)
 val vm = module {
     viewModel { DashboardVM(get()) }
+    viewModel { CameraVM() }
     single { SharedVM() }
 }
 val useCases = module {
